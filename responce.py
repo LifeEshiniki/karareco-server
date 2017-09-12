@@ -42,6 +42,7 @@ res = json.dumps(res_data)
 
 @route('/resp')
 def resp():
+    response.status = 200
     response.content_type = "application/json"
     return res
 
