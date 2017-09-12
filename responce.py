@@ -9,11 +9,15 @@ from bottle import request,response,template,redirect
 from bottle import route,HTTPError
 from bottle import get,post,run
 
+
+@route('/')
+def root():
+    return template("hello {{string}}\n"
+                    '<a href="./upload">upload</a>', string = "world")
 # クライアントから音声ファイルを受け取る
 @route('/upload', method='POST')
 def upload():
     upload = request.files.get('upload')
-    name, ext = os.path.splitext(upload.filename)
 
     upload.save("/tmp",overwrite=True)
     return template('{{string}} is uploaded.\n', string = upload.filename) # check
