@@ -21,13 +21,13 @@ def do_upload():
     name, ext = os.path.splitext(upload.filename)
 
     upload.save("/tmp",overwrite=True)
+    return template('{{string}} is uploaded.\n', string = upload.filename) # check
+
 
 # クライアントから送られた音声ファイルをHoundifyに認識させる
 '''
-
 (⊃|⊂) → (⊃*⊂)
 ケツマンおっぴろげてメールを待つ
-
 '''
 
 # houndifyからのJSONをダンプ
@@ -39,6 +39,11 @@ dec = json.dumps(result)
 res_data = {"Result":dec["otintin"],"song":dec["samurai"],"artist":dec["tintinzamurai"],"album":dec["tintinzamurai"]}
 # クライアントにJSON形式で結果を送信
 res = json.dumps(res_data)
+
+@route('/resp')
+def resp():
+    response.content_type = "application/json"
+    return res
 
 # print(res_data)
 
